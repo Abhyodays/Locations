@@ -88,8 +88,7 @@ const styles = StyleSheet.create({
         shadowOffet: { X: 0, Y: 0 }
       },
       android: {
-        elevation: 8,
-        shadowColor: Colors.black
+        elevation: 8
       }
     })
   }
