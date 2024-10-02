@@ -4,7 +4,6 @@ import { actuatedNormalize, actuatedNormalizeVertical } from '../utilities/respo
 import ListItem from '../components/ListItem'
 import Ionicons from '@expo/vector-icons/Ionicons';
 import useLocation from '../hooks/useLocation'
-import { ActivityIndicator } from 'react-native-paper';
 
 const Home = () => {
   const { locations, removeLocation, addLocation } = useLocation();
