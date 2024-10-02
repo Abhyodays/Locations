@@ -7,10 +7,7 @@ import useLocation from '../hooks/useLocation'
 import { ActivityIndicator } from 'react-native-paper';
 
 const Home = () => {
-
   const { locations, removeLocation, addLocation } = useLocation();
-
-
   const handlePress = async () => {
     addLocation();
   }
