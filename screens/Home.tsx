@@ -1,38 +1,18 @@
 import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity, Platform, Alert } from 'react-native'
 import Colors from '../constants/Colors'
 import { actuatedNormalize, actuatedNormalizeVertical } from '../utilities/responsiveSizing'
-import { Coordinate } from '../types/coordinate'
 import ListItem from '../components/ListItem'
 import Ionicons from '@expo/vector-icons/Ionicons';
-import * as Location from 'expo-location';
-import { useState } from "react"
-import * as Crypto from 'expo-crypto';
 import useLocation from '../hooks/useLocation'
+import { ActivityIndicator } from 'react-native-paper';
 
 const Home = () => {
 
   const { locations, removeLocation, addLocation } = useLocation();
 
-  const askLocationPersmission = async () => {
-    const { status } = await Location.requestForegroundPermissionsAsync();
-    if (status !== "granted") {
-      Alert.alert("Location Persmission", "Permission to access location denied.")
-      return false;
-    }
-    return true;
-  }
 
   const handlePress = async () => {
-    const permission = await askLocationPersmission();
-    if (!permission) return;
-    try {
-      const location = await Location.getCurrentPositionAsync({});
-      const { latitude, longitude } = location.coords
-      const newLocation = { id: Crypto.randomUUID(), latitude, longitude };
-      addLocation(newLocation);
-    } catch (error) {
-      console.log('Failed to get location. Please try again.', error);
-    }
+    addLocation();
   }
   return (
     <View style={styles.container}>
@@ -52,8 +32,8 @@ const Home = () => {
             <Image source={require('../assets/Logo.jpg')} style={styles.image} resizeMode="contain" />
           </View>
       }
-      <TouchableOpacity activeOpacity={0.5} onPress={handlePress}>
-        <View style={[styles.floating_button, styles.shadow]} >
+      <TouchableOpacity activeOpacity={0.5} onPress={handlePress} >
+        <View style={[styles.floating_button]} >
           <Ionicons name="add" style={styles.icon} />
         </View>
       </TouchableOpacity>
@@ -99,6 +79,9 @@ const styles = StyleSheet.create({
     fontSize: actuatedNormalize(48),
     padding: 10,
     color: Colors.white
+  },
+  loading: {
+    opacity: 0.5
   },
   shadow: {
     ...Platform.select({
